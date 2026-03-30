@@ -6,6 +6,7 @@ const express = require('express');
 const cors    = require('cors');
 const helmet  = require('helmet');
 const morgan  = require('morgan');
+const bcrypt  = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const http    = require('http');
@@ -19,6 +20,51 @@ const { seedDatabase } = require('../prisma/seed');
 
 const app    = express();
 const server = http.createServer(app);
+
+async function ensureBootstrapAdmin() {
+  const email = process.env.BOOTSTRAP_ADMIN_EMAIL?.trim().toLowerCase();
+  const password = process.env.BOOTSTRAP_ADMIN_PASSWORD;
+
+  if (!email || !password) return;
+
+  const school = await prisma.school.upsert({
+    where: { code: 'ECS' },
+    update: {},
+    create: {
+      name: 'EduCore Academy',
+      code: 'ECS',
+      address: '12 Learning Lane, Lagos, Nigeria',
+      phone: '+234-801-234-5678',
+      email: 'info@educoreacademy.ng',
+      currentTerm: 2,
+      currentYear: '2024/2025',
+    },
+  });
+
+  await prisma.user.upsert({
+    where: { email },
+    update: {
+      passwordHash: bcrypt.hashSync(password, 10),
+      isActive: true,
+      role: 'admin',
+      schoolId: school.id,
+      firstName: process.env.BOOTSTRAP_ADMIN_FIRST_NAME || 'Amara',
+      lastName: process.env.BOOTSTRAP_ADMIN_LAST_NAME || 'Osei',
+      phone: process.env.BOOTSTRAP_ADMIN_PHONE || '+234-801-000-0001',
+    },
+    create: {
+      schoolId: school.id,
+      email,
+      passwordHash: bcrypt.hashSync(password, 10),
+      role: 'admin',
+      firstName: process.env.BOOTSTRAP_ADMIN_FIRST_NAME || 'Amara',
+      lastName: process.env.BOOTSTRAP_ADMIN_LAST_NAME || 'Osei',
+      phone: process.env.BOOTSTRAP_ADMIN_PHONE || '+234-801-000-0001',
+    },
+  });
+
+  console.log(`Bootstrap admin ensured for ${email}`);
+}
 
 const normalizeOrigin = (value) => {
   if (!value) return '';
@@ -82,6 +128,11 @@ async function start() {
     console.log('RUN_SEED_ON_BOOT=true, seeding database before startup...');
     await seedDatabase();
     console.log('Startup seed complete.');
+  }
+
+  if (process.env.BOOTSTRAP_ADMIN_EMAIL && process.env.BOOTSTRAP_ADMIN_PASSWORD) {
+    console.log('BOOTSTRAP_ADMIN_* detected, ensuring admin user before startup...');
+    await ensureBootstrapAdmin();
   }
 
   server.listen(PORT, () => {
