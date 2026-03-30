@@ -6,3 +6,4 @@ dist/
 prisma/migrations/
 .cache/
 coverage/
+package-lock.json
