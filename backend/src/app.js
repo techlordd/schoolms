@@ -14,6 +14,8 @@ const { Server } = require('socket.io');
 const { errorHandler } = require('./middleware/errorHandler');
 const { rateLimiter }  = require('./middleware/rateLimiter');
 const routes           = require('./routes');
+const prisma           = require('./config/db');
+const { seedDatabase } = require('../prisma/seed');
 
 const app    = express();
 const server = http.createServer(app);
@@ -74,10 +76,25 @@ app.use(errorHandler);
 
 // ─── Start ────────────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-  console.log(`\n🚀 EduCore API running on port ${PORT}`);
-  console.log(`   Environment: ${process.env.NODE_ENV}`);
-  console.log(`   Health: http://localhost:${PORT}/health\n`);
+
+async function start() {
+  if (process.env.RUN_SEED_ON_BOOT === 'true') {
+    console.log('RUN_SEED_ON_BOOT=true, seeding database before startup...');
+    await seedDatabase();
+    console.log('Startup seed complete.');
+  }
+
+  server.listen(PORT, () => {
+    console.log(`\n🚀 EduCore API running on port ${PORT}`);
+    console.log(`   Environment: ${process.env.NODE_ENV}`);
+    console.log(`   Health: http://localhost:${PORT}/health\n`);
+  });
+}
+
+start().catch(async (error) => {
+  console.error('Failed to start application', error);
+  await prisma.$disconnect();
+  process.exit(1);
 });
 
 module.exports = { app, server };

@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 const prisma = new PrismaClient();
 
-async function main() {
+async function seedDatabase() {
   console.log('🌱 Seeding EduCore database...');
 
   // School
@@ -259,6 +259,10 @@ async function main() {
   console.log('  Parent:      parent1@educore.ng   / Parent@123');
 }
 
-main()
-  .catch(console.error)
-  .finally(() => prisma.$disconnect());
+module.exports = { seedDatabase };
+
+if (require.main === module) {
+  seedDatabase()
+    .catch(console.error)
+    .finally(() => prisma.$disconnect());
+}
