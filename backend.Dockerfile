@@ -5,8 +5,8 @@ WORKDIR /app
 # Copy backend source from repo root context
 COPY backend/ .
 
-# Install all dependencies including dev (prisma CLI is in devDependencies)
-RUN npm install
+# Install production dependencies (prisma CLI now in dependencies)
+RUN npm install --omit=dev
 
 # Generate Prisma client with correct engine binaries
 RUN npx prisma generate

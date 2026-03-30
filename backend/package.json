@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.10.2",
+    "prisma": "^5.10.2",
     "aws-sdk": "^2.1552.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
@@ -38,7 +39,6 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "nodemon": "^3.1.0",
-    "prisma": "^5.10.2",
     "supertest": "^6.3.4"
   }
 }
