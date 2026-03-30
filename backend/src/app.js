@@ -21,6 +21,9 @@ const { seedDatabase } = require('../prisma/seed');
 const app    = express();
 const server = http.createServer(app);
 
+// Required on Railway so req.ip and X-Forwarded-For are handled correctly.
+app.set('trust proxy', 1);
+
 async function ensureBootstrapAdmin() {
   const email = process.env.BOOTSTRAP_ADMIN_EMAIL?.trim().toLowerCase();
   const password = process.env.BOOTSTRAP_ADMIN_PASSWORD;
