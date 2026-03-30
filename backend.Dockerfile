@@ -30,4 +30,4 @@ RUN if [ -n "$DATABASE_URL" ]; then npx prisma db push --skip-generate; fi
 
 EXPOSE 5000
 
-CMD ["sh", "-c", "node prisma/seed.js || true && node src/app.js"]
+CMD ["sh", "-c", "npx prisma db push && node prisma/seed.js || true && node src/app.js"]
