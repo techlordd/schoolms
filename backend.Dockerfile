@@ -1,0 +1,16 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy backend source from repo root context
+COPY backend/ .
+
+# Install dependencies
+RUN npm install --omit=dev
+
+# Generate Prisma client
+RUN npx prisma generate
+
+EXPOSE 5000
+
+CMD ["node", "src/app.js"]
