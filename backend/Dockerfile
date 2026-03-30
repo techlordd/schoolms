@@ -3,12 +3,11 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Install dependencies
-COPY package*.json ./
-RUN npm install --omit=dev
-
 # Copy source
 COPY . .
+
+# Install dependencies
+RUN npm install --omit=dev
 
 # Generate Prisma client
 RUN npx prisma generate
