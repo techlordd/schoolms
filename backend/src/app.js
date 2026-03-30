@@ -149,6 +149,10 @@ async function start() {
   if (process.env.BOOTSTRAP_ADMIN_EMAIL && process.env.BOOTSTRAP_ADMIN_PASSWORD) {
     console.log('BOOTSTRAP_ADMIN_* detected, ensuring admin user before startup...');
     await ensureBootstrapAdmin();
+  } else {
+    const email = process.env.BOOTSTRAP_ADMIN_EMAIL ? '(set)' : '(not set)';
+    const password = process.env.BOOTSTRAP_ADMIN_PASSWORD ? '(set)' : '(not set)';
+    console.log(`Bootstrap skipped: BOOTSTRAP_ADMIN_EMAIL=${email}, BOOTSTRAP_ADMIN_PASSWORD=${password}`);
   }
 
   server.listen(PORT, () => {
