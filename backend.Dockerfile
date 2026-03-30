@@ -1,14 +1,11 @@
-FROM node:20
+FROM node:18-bullseye
 
-# Force cache bust
-ARG CACHEBUST=1
-
-# Manually install OpenSSL (both 1.1.x and 3.x shared libraries)
+# Install OpenSSL 1.1.x (matches Railway runtime environment)
 RUN apt-get update -y && \
-    apt-get install -y openssl libssl-dev libssl3 && \
+    apt-get install -y openssl libssl1.1 libssl-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Prisma CLI globally as fallback
+# Install Prisma CLI globally
 RUN npm install -g prisma
 
 WORKDIR /app
@@ -16,7 +13,7 @@ WORKDIR /app
 # Copy backend source from repo root context
 COPY backend/ .
 
-# Install production dependencies (prisma CLI now in dependencies)
+# Install production dependencies
 RUN npm install --omit=dev
 
 # Generate Prisma client with correct engine binaries
