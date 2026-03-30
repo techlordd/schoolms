@@ -120,6 +120,17 @@ app.use(rateLimiter);
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 app.get('/health', (_req, res) => res.json({ status: 'ok', version: '1.0.0' }));
+app.get('/debug/admin-user', async (_req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: 'admin@educore.ng' },
+      select: { id: true, email: true, role: true, isActive: true, firstName: true, lastName: true },
+    });
+    res.json({ found: !!user, user });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 app.use('/v1', routes);
 
 // ─── Error handler ────────────────────────────────────────────────────────────
