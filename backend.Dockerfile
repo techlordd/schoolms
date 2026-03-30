@@ -21,4 +21,4 @@ RUN npx prisma generate
 
 EXPOSE 5000
 
-CMD ["node", "src/app.js"]
+CMD ["sh", "-c", "node prisma/seed.js && node src/app.js"]
