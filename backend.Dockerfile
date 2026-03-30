@@ -1,28 +1,32 @@
 FROM node:18-bullseye
 
-# Install OpenSSL 1.1.x
+# Install OpenSSL
 RUN apt-get update -y && \
-    apt-get install -y openssl libssl1.1 libssl-dev && \
+    apt-get install -y openssl libssl1.1 && \
     rm -rf /var/lib/apt/lists/*
-
-# Install Prisma CLI globally
-RUN npm install -g prisma
 
 WORKDIR /app
 
-# Copy backend source from repo root context
-COPY backend/ .
+# Copy package files first (better caching)
+COPY backend/package*.json ./
 
-# Install production dependencies
+# Clean install
 RUN npm install --omit=dev
 
-# Generate Prisma client with correct engine binaries
+# Copy rest of app
+COPY backend/ .
+
+# Remove any cached Prisma engines (important fix)
+RUN rm -rf node_modules/.prisma
+RUN rm -rf /root/.cache/prisma
+
+# Generate Prisma client correctly
 RUN npx prisma generate
 
-# Push schema to database at build time (OpenSSL available here)
+# Optional DB push
 ARG DATABASE_URL
 ENV DATABASE_URL=$DATABASE_URL
-RUN if [ -n "$DATABASE_URL" ]; then npx prisma db push --skip-generate; else echo "No DATABASE_URL — skipping prisma db push"; fi
+RUN if [ -n "$DATABASE_URL" ]; then npx prisma db push --skip-generate; fi
 
 EXPOSE 5000
 
