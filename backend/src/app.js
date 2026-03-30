@@ -25,45 +25,50 @@ async function ensureBootstrapAdmin() {
   const email = process.env.BOOTSTRAP_ADMIN_EMAIL?.trim().toLowerCase();
   const password = process.env.BOOTSTRAP_ADMIN_PASSWORD;
 
-  if (!email || !password) return;
+  if (!email || !password) {
+    console.log('BOOTSTRAP_ADMIN_EMAIL or BOOTSTRAP_ADMIN_PASSWORD not set, skipping bootstrap');
+    return;
+  }
 
-  const school = await prisma.school.upsert({
-    where: { code: 'ECS' },
-    update: {},
-    create: {
-      name: 'EduCore Academy',
-      code: 'ECS',
-      address: '12 Learning Lane, Lagos, Nigeria',
-      phone: '+234-801-234-5678',
-      email: 'info@educoreacademy.ng',
-      currentTerm: 2,
-      currentYear: '2024/2025',
-    },
-  });
+  try {
+    console.log(`Bootstrap: attempting to ensure admin user ${email}`);
 
-  await prisma.user.upsert({
-    where: { email },
-    update: {
-      passwordHash: bcrypt.hashSync(password, 10),
-      isActive: true,
-      role: 'admin',
-      schoolId: school.id,
-      firstName: process.env.BOOTSTRAP_ADMIN_FIRST_NAME || 'Amara',
-      lastName: process.env.BOOTSTRAP_ADMIN_LAST_NAME || 'Osei',
-      phone: process.env.BOOTSTRAP_ADMIN_PHONE || '+234-801-000-0001',
-    },
-    create: {
-      schoolId: school.id,
-      email,
-      passwordHash: bcrypt.hashSync(password, 10),
-      role: 'admin',
-      firstName: process.env.BOOTSTRAP_ADMIN_FIRST_NAME || 'Amara',
-      lastName: process.env.BOOTSTRAP_ADMIN_LAST_NAME || 'Osei',
-      phone: process.env.BOOTSTRAP_ADMIN_PHONE || '+234-801-000-0001',
-    },
-  });
+    const school = await prisma.school.upsert({
+      where: { code: 'ECS' },
+      update: {},
+      create: {
+        name: 'EduCore Academy',
+        code: 'ECS',
+        address: '12 Learning Lane, Lagos, Nigeria',
+        phone: '+234-801-234-5678',
+        email: 'info@educoreacademy.ng',
+        currentTerm: 2,
+        currentYear: '2024/2025',
+      },
+    });
+    console.log(`Bootstrap: school ensured (${school.id})`);
 
-  console.log(`Bootstrap admin ensured for ${email}`);
+    const user = await prisma.user.upsert({
+      where: { email },
+      update: {
+        passwordHash: bcrypt.hashSync(password, 10),
+        isActive: true,
+      },
+      create: {
+        schoolId: school.id,
+        email,
+        passwordHash: bcrypt.hashSync(password, 10),
+        role: 'admin',
+        firstName: process.env.BOOTSTRAP_ADMIN_FIRST_NAME || 'Amara',
+        lastName: process.env.BOOTSTRAP_ADMIN_LAST_NAME || 'Osei',
+        phone: process.env.BOOTSTRAP_ADMIN_PHONE || '+234-801-000-0001',
+      },
+    });
+    console.log(`✓ Bootstrap: admin user ensured (${user.id})`);
+  } catch (error) {
+    console.error(`✗ Bootstrap failed: ${error.message}`);
+    throw error;
+  }
 }
 
 const normalizeOrigin = (value) => {
