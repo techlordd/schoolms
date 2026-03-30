@@ -28,7 +28,7 @@ async function main() {
   // Users
   const admin = await prisma.user.upsert({
     where: { email: 'admin@educore.ng' },
-    update: {},
+    update: { passwordHash: hash('Admin@123'), isActive: true },
     create: {
       schoolId: school.id, email: 'admin@educore.ng',
       passwordHash: hash('Admin@123'), role: 'admin',
@@ -38,7 +38,7 @@ async function main() {
 
   const headTeacher = await prisma.user.upsert({
     where: { email: 'head@educore.ng' },
-    update: {},
+    update: { passwordHash: hash('Head@123'), isActive: true },
     create: {
       schoolId: school.id, email: 'head@educore.ng',
       passwordHash: hash('Head@123'), role: 'head_teacher',
@@ -48,7 +48,7 @@ async function main() {
 
   const teacher1 = await prisma.user.upsert({
     where: { email: 'teacher1@educore.ng' },
-    update: {},
+    update: { passwordHash: hash('Teacher@123'), isActive: true },
     create: {
       schoolId: school.id, email: 'teacher1@educore.ng',
       passwordHash: hash('Teacher@123'), role: 'class_teacher',
@@ -58,7 +58,7 @@ async function main() {
 
   const teacher2 = await prisma.user.upsert({
     where: { email: 'teacher2@educore.ng' },
-    update: {},
+    update: { passwordHash: hash('Teacher@123'), isActive: true },
     create: {
       schoolId: school.id, email: 'teacher2@educore.ng',
       passwordHash: hash('Teacher@123'), role: 'teacher',
@@ -68,7 +68,7 @@ async function main() {
 
   const parent1 = await prisma.user.upsert({
     where: { email: 'parent1@educore.ng' },
-    update: {},
+    update: { passwordHash: hash('Parent@123'), isActive: true },
     create: {
       schoolId: school.id, email: 'parent1@educore.ng',
       passwordHash: hash('Parent@123'), role: 'parent',
