@@ -13,6 +13,14 @@ const tokenPayload = (user) => ({
   firstName: user.firstName, lastName: user.lastName,
 });
 
+const isProd = process.env.NODE_ENV === 'production';
+const refreshCookieOptions = {
+  httpOnly: true,
+  secure: isProd,
+  sameSite: isProd ? 'none' : 'lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+};
+
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) throw AppError('Email and password required');
@@ -29,10 +37,7 @@ exports.login = async (req, res) => {
   const accessToken  = signAccess(payload);
   const refreshToken = signRefresh({ sub: user.id });
 
-  res.cookie('refreshToken', refreshToken, {
-    httpOnly: true, secure: true,
-    sameSite: 'none', maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
+  res.cookie('refreshToken', refreshToken, refreshCookieOptions);
 
   ok(res, {
     accessToken,
@@ -45,7 +50,7 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-  res.clearCookie('refreshToken');
+  res.clearCookie('refreshToken', refreshCookieOptions);
   ok(res, null, 'Logged out');
 };
 
