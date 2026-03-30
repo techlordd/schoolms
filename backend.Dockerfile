@@ -8,6 +8,9 @@ RUN apt-get update -y && \
     apt-get install -y openssl libssl-dev libssl3 && \
     rm -rf /var/lib/apt/lists/*
 
+# Install Prisma CLI globally as fallback
+RUN npm install -g prisma
+
 WORKDIR /app
 
 # Copy backend source from repo root context
