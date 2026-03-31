@@ -28,7 +28,7 @@ export default function StudentDetailPage() {
 
   return (
     <div className="max-w-3xl">
-      <button className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-800 mb-5" onClick={() => navigate('/students')}>
+      <button className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-800 mb-5" onClick={() => navigate('/dashboard/students')}>
         <ArrowLeft size={16} /> Back to Students
       </button>
 
@@ -95,7 +95,7 @@ export default function StudentDetailPage() {
       <div className="card">
         <div className="card-header">
           <h3 className="card-title">Results — Term 2</h3>
-          <button className="btn btn-ghost btn-sm" onClick={() => navigate(`/grades/report-card/${id}`)}>View Report Card</button>
+          <button className="btn btn-ghost btn-sm" onClick={() => navigate(`/dashboard/grades/report-card/${id}`)}>View Report Card</button>
         </div>
         <div className="table-container">
           <table className="table">

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import useAuthStore from './store/authStore';
 import Layout from './components/layout/Layout';
 import LoginPage from './pages/auth/LoginPage';
+import LandingPage from './pages/landing/LandingPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import StudentsPage from './pages/students/StudentsPage';
 import StudentDetailPage from './pages/students/StudentDetailPage';
@@ -26,15 +27,21 @@ const PrivateRoute = ({ children }) => {
 
 const PublicRoute = ({ children }) => {
   const isAuthenticated = useAuthStore(s => s.isAuthenticated);
-  return isAuthenticated ? <Navigate to="/" replace /> : children;
+  return isAuthenticated ? <Navigate to="/dashboard" replace /> : children;
+};
+
+const LandingRoute = ({ children }) => {
+  const isAuthenticated = useAuthStore(s => s.isAuthenticated);
+  return isAuthenticated ? <Navigate to="/dashboard" replace /> : children;
 };
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<LandingRoute><LandingPage /></LandingRoute>} />
         <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
-        <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
+        <Route path="/dashboard" element={<PrivateRoute><Layout /></PrivateRoute>}>
           <Route index element={<DashboardPage />} />
           <Route path="students" element={<StudentsPage />} />
           <Route path="students/enroll" element={<EnrollPage />} />

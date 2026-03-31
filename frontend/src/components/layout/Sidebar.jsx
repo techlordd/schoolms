@@ -11,78 +11,78 @@ import toast from 'react-hot-toast';
 const NAV = {
   admin: [
     { section: 'Main', items: [
-      { to: '/',           label: 'Dashboard',     icon: LayoutDashboard },
-      { to: '/students',   label: 'Students',      icon: Users },
-      { to: '/attendance', label: 'Attendance',    icon: ClipboardList },
-      { to: '/grades',     label: 'Grades & Reports', icon: BarChart2 },
-      { to: '/assignments',label: 'Assignments',   icon: BookOpen },
+      { to: '/dashboard',            label: 'Dashboard',     icon: LayoutDashboard },
+      { to: '/dashboard/students',   label: 'Students',      icon: Users },
+      { to: '/dashboard/attendance', label: 'Attendance',    icon: ClipboardList },
+      { to: '/dashboard/grades',     label: 'Grades & Reports', icon: BarChart2 },
+      { to: '/dashboard/assignments',label: 'Assignments',   icon: BookOpen },
     ]},
     { section: 'Management', items: [
-      { to: '/staff',      label: 'Staff & Payroll', icon: UserCheck },
-      { to: '/finance',    label: 'Finance',        icon: DollarSign },
-      { to: '/calendar',   label: 'Calendar',       icon: CalendarDays },
-      { to: '/meetings',   label: 'Staff Meetings', icon: Briefcase },
-      { to: '/documents',  label: 'Documents',      icon: FolderOpen },
-      { to: '/messages',   label: 'Messages',       icon: MessageSquare },
+      { to: '/dashboard/staff',      label: 'Staff & Payroll', icon: UserCheck },
+      { to: '/dashboard/finance',    label: 'Finance',        icon: DollarSign },
+      { to: '/dashboard/calendar',   label: 'Calendar',       icon: CalendarDays },
+      { to: '/dashboard/meetings',   label: 'Staff Meetings', icon: Briefcase },
+      { to: '/dashboard/documents',  label: 'Documents',      icon: FolderOpen },
+      { to: '/dashboard/messages',   label: 'Messages',       icon: MessageSquare },
     ]},
   ],
   head_teacher: [
     { section: 'Oversight', items: [
-      { to: '/',           label: 'Dashboard',      icon: LayoutDashboard },
-      { to: '/students',   label: 'All Students',   icon: Users },
-      { to: '/attendance', label: 'Attendance',     icon: ClipboardList },
-      { to: '/grades',     label: 'Results',        icon: BarChart2 },
+      { to: '/dashboard',            label: 'Dashboard',      icon: LayoutDashboard },
+      { to: '/dashboard/students',   label: 'All Students',   icon: Users },
+      { to: '/dashboard/attendance', label: 'Attendance',     icon: ClipboardList },
+      { to: '/dashboard/grades',     label: 'Results',        icon: BarChart2 },
     ]},
     { section: 'Management', items: [
-      { to: '/staff',      label: 'Staff',          icon: UserCheck },
-      { to: '/calendar',   label: 'Calendar',       icon: CalendarDays },
-      { to: '/meetings',   label: 'Staff Meetings', icon: Briefcase },
-      { to: '/documents',  label: 'Documents',      icon: FolderOpen },
-      { to: '/messages',   label: 'Messages',       icon: MessageSquare },
+      { to: '/dashboard/staff',      label: 'Staff',          icon: UserCheck },
+      { to: '/dashboard/calendar',   label: 'Calendar',       icon: CalendarDays },
+      { to: '/dashboard/meetings',   label: 'Staff Meetings', icon: Briefcase },
+      { to: '/dashboard/documents',  label: 'Documents',      icon: FolderOpen },
+      { to: '/dashboard/messages',   label: 'Messages',       icon: MessageSquare },
     ]},
   ],
   teacher: [
     { section: 'My Work', items: [
-      { to: '/',           label: 'Dashboard',      icon: LayoutDashboard },
-      { to: '/attendance', label: 'Attendance',     icon: ClipboardList },
-      { to: '/assignments',label: 'Assignments',    icon: BookOpen },
-      { to: '/grades',     label: 'Enter Scores',   icon: BarChart2 },
+      { to: '/dashboard',            label: 'Dashboard',      icon: LayoutDashboard },
+      { to: '/dashboard/attendance', label: 'Attendance',     icon: ClipboardList },
+      { to: '/dashboard/assignments',label: 'Assignments',    icon: BookOpen },
+      { to: '/dashboard/grades',     label: 'Enter Scores',   icon: BarChart2 },
     ]},
     { section: 'Other', items: [
-      { to: '/calendar',   label: 'Calendar',       icon: CalendarDays },
-      { to: '/documents',  label: 'Resources',      icon: FolderOpen },
-      { to: '/messages',   label: 'Messages',       icon: MessageSquare },
+      { to: '/dashboard/calendar',   label: 'Calendar',       icon: CalendarDays },
+      { to: '/dashboard/documents',  label: 'Resources',      icon: FolderOpen },
+      { to: '/dashboard/messages',   label: 'Messages',       icon: MessageSquare },
     ]},
   ],
   class_teacher: [
     { section: 'My Class', items: [
-      { to: '/',           label: 'Dashboard',      icon: LayoutDashboard },
-      { to: '/students',   label: 'My Students',    icon: Users },
-      { to: '/attendance', label: 'Attendance',     icon: ClipboardList },
-      { to: '/grades',     label: 'Report Cards',   icon: BarChart2 },
-      { to: '/assignments',label: 'Assignments',    icon: BookOpen },
+      { to: '/dashboard',            label: 'Dashboard',      icon: LayoutDashboard },
+      { to: '/dashboard/students',   label: 'My Students',    icon: Users },
+      { to: '/dashboard/attendance', label: 'Attendance',     icon: ClipboardList },
+      { to: '/dashboard/grades',     label: 'Report Cards',   icon: BarChart2 },
+      { to: '/dashboard/assignments',label: 'Assignments',    icon: BookOpen },
     ]},
     { section: 'Other', items: [
-      { to: '/messages',   label: 'Messages',       icon: MessageSquare },
-      { to: '/documents',  label: 'Documents',      icon: FolderOpen },
+      { to: '/dashboard/messages',   label: 'Messages',       icon: MessageSquare },
+      { to: '/dashboard/documents',  label: 'Documents',      icon: FolderOpen },
     ]},
   ],
   student: [
     { section: 'My School', items: [
-      { to: '/',           label: 'Dashboard',      icon: LayoutDashboard },
-      { to: '/grades',     label: 'My Results',     icon: BarChart2 },
-      { to: '/attendance', label: 'My Attendance',  icon: ClipboardList },
-      { to: '/assignments',label: 'Assignments',    icon: BookOpen },
-      { to: '/calendar',   label: 'Calendar',       icon: CalendarDays },
+      { to: '/dashboard',            label: 'Dashboard',      icon: LayoutDashboard },
+      { to: '/dashboard/grades',     label: 'My Results',     icon: BarChart2 },
+      { to: '/dashboard/attendance', label: 'My Attendance',  icon: ClipboardList },
+      { to: '/dashboard/assignments',label: 'Assignments',    icon: BookOpen },
+      { to: '/dashboard/calendar',   label: 'Calendar',       icon: CalendarDays },
     ]},
   ],
   parent: [
     { section: "My Children", items: [
-      { to: '/',           label: 'Dashboard',      icon: LayoutDashboard },
-      { to: '/grades',     label: "Results",        icon: BarChart2 },
-      { to: '/attendance', label: 'Attendance',     icon: ClipboardList },
-      { to: '/finance',    label: 'Fee Payments',   icon: DollarSign },
-      { to: '/messages',   label: 'Messages',       icon: MessageSquare },
+      { to: '/dashboard',            label: 'Dashboard',      icon: LayoutDashboard },
+      { to: '/dashboard/grades',     label: "Results",        icon: BarChart2 },
+      { to: '/dashboard/attendance', label: 'Attendance',     icon: ClipboardList },
+      { to: '/dashboard/finance',    label: 'Fee Payments',   icon: DollarSign },
+      { to: '/dashboard/messages',   label: 'Messages',       icon: MessageSquare },
     ]},
   ],
 };
@@ -142,7 +142,7 @@ export default function Sidebar() {
               <NavLink
                 key={item.to}
                 to={item.to}
-                end={item.to === '/'}
+                end={item.to === '/dashboard'}
                 className={({ isActive }) =>
                   `sidebar-item ${isActive ? 'active' : ''}`
                 }
@@ -157,7 +157,7 @@ export default function Sidebar() {
 
       {/* Bottom */}
       <div className="border-t border-white/10 p-3 flex flex-col gap-1">
-        <NavLink to="/profile" className="sidebar-item">
+        <NavLink to="/dashboard/profile" className="sidebar-item">
           <Settings size={16} />
           <span>Settings</span>
         </NavLink>

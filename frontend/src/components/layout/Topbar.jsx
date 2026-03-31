@@ -4,11 +4,11 @@ import { useLocation } from 'react-router-dom';
 import useAuthStore from '../../store/authStore';
 
 const PAGE_TITLES = {
-  '/': 'Dashboard', '/students': 'Students', '/students/enroll': 'Enroll Student',
-  '/attendance': 'Attendance', '/grades': 'Grades & Reports', '/assignments': 'Assignments',
-  '/finance': 'Finance', '/staff': 'Staff & Payroll', '/messages': 'Messages',
-  '/calendar': 'School Calendar', '/documents': 'Documents', '/meetings': 'Staff Meetings',
-  '/profile': 'My Profile',
+  '/dashboard': 'Dashboard', '/dashboard/students': 'Students', '/dashboard/students/enroll': 'Enroll Student',
+  '/dashboard/attendance': 'Attendance', '/dashboard/grades': 'Grades & Reports', '/dashboard/assignments': 'Assignments',
+  '/dashboard/finance': 'Finance', '/dashboard/staff': 'Staff & Payroll', '/dashboard/messages': 'Messages',
+  '/dashboard/calendar': 'School Calendar', '/dashboard/documents': 'Documents', '/dashboard/meetings': 'Staff Meetings',
+  '/dashboard/profile': 'My Profile',
 };
 
 export default function Topbar() {

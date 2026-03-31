@@ -75,7 +75,7 @@ function AdminDashboard({ data }) {
         <div className="card">
           <div className="card-header">
             <h3 className="card-title">Recent Enrollments</h3>
-            <a href="/students" className="text-xs text-primary-600 font-medium hover:underline">View all</a>
+            <a href="/dashboard/students" className="text-xs text-primary-600 font-medium hover:underline">View all</a>
           </div>
           <div className="table-container">
             <table className="table">

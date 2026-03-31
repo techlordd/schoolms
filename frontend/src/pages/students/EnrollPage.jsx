@@ -22,7 +22,7 @@ export default function EnrollPage() {
     onSuccess: (res) => {
       toast.success(`Student enrolled! ID: ${res.data.data.studentId}`);
       qc.invalidateQueries(['students']);
-      navigate('/students');
+      navigate('/dashboard/students');
     },
     onError: err => toast.error(err.response?.data?.message || 'Enrollment failed'),
   });
@@ -30,7 +30,7 @@ export default function EnrollPage() {
   return (
     <div className="max-w-2xl">
       <button className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-800 mb-5 transition-colors"
-        onClick={() => navigate('/students')}>
+        onClick={() => navigate('/dashboard/students')}>
         <ArrowLeft size={16} /> Back to Students
       </button>
 
@@ -116,7 +116,7 @@ export default function EnrollPage() {
         </div>
 
         <div className="flex justify-end gap-3">
-          <button type="button" className="btn btn-ghost" onClick={() => navigate('/students')}>Cancel</button>
+          <button type="button" className="btn btn-ghost" onClick={() => navigate('/dashboard/students')}>Cancel</button>
           <button type="submit" className="btn btn-primary" disabled={mutation.isPending}>
             {mutation.isPending ? 'Enrolling...' : 'Enroll Student'}
           </button>

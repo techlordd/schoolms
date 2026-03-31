@@ -43,7 +43,7 @@ export default function StudentsPage() {
           <h1 className="page-title">Students</h1>
           <p className="page-subtitle">{pagination?.total ?? 0} students enrolled</p>
         </div>
-        <button className="btn btn-primary" onClick={() => navigate('/students/enroll')}>
+        <button className="btn btn-primary" onClick={() => navigate('/dashboard/students/enroll')}>
           <Plus size={16} /> Enroll Student
         </button>
       </div>
@@ -67,7 +67,7 @@ export default function StudentsPage() {
       <div className="card">
         {isLoading ? <PageSpinner /> : students.length === 0 ? (
           <EmptyState icon="👥" title="No students found" description="Try adjusting your filters or enroll a new student."
-            action={<button className="btn btn-primary" onClick={() => navigate('/students/enroll')}><Plus size={16} /> Enroll Student</button>} />
+            action={<button className="btn btn-primary" onClick={() => navigate('/dashboard/students/enroll')}><Plus size={16} /> Enroll Student</button>} />
         ) : (
           <>
             <div className="table-container">
@@ -80,7 +80,7 @@ export default function StudentsPage() {
                 </thead>
                 <tbody>
                   {students.map(s => (
-                    <tr key={s.id} className="cursor-pointer" onClick={() => navigate(`/students/${s.id}`)}>
+                    <tr key={s.id} className="cursor-pointer" onClick={() => navigate(`/dashboard/students/${s.id}`)}>
                       <td>
                         <div className="flex items-center gap-3">
                           <Avatar name={`${s.firstName} ${s.lastName}`} size="sm" />
@@ -100,7 +100,7 @@ export default function StudentsPage() {
                       <td><Badge label={s.isActive ? 'Active' : 'Inactive'} /></td>
                       <td onClick={e => e.stopPropagation()}>
                         <div className="flex gap-1">
-                          <button className="btn btn-ghost btn-sm" onClick={() => navigate(`/students/${s.id}`)}>View</button>
+                          <button className="btn btn-ghost btn-sm" onClick={() => navigate(`/dashboard/students/${s.id}`)}>View</button>
                           <button className="btn btn-ghost btn-sm text-red-500"
                             onClick={() => setConfirmId(s.id)}>Remove</button>
                         </div>
